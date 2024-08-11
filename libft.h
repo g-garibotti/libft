@@ -6,7 +6,7 @@
 /*   By: ggaribot <ggaribot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:14:38 by ggaribot          #+#    #+#             */
-/*   Updated: 2024/05/22 13:40:12 by ggaribot         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:46:01 by ggaribot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include <unistd.h>
+# include <limits.h>
 
 # define FIRST_ASCII_CHAR	0
 # define LAST_ASCII_CHAR	127
@@ -76,4 +77,5 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+long	ft_strtol(const char *str, char **endptr, int base);
 #endif

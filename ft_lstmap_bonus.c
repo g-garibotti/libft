@@ -6,21 +6,11 @@
 /*   By: ggaribot <ggaribot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 20:50:15 by ggaribot          #+#    #+#             */
-/*   Updated: 2024/06/03 20:05:17 by ggaribot         ###   ########.fr       */
+/*   Updated: 2024/06/06 18:15:28 by ggaribot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static t_list	*create_new_elem(void *content)
-{
-	t_list	*new_elem;
-
-	new_elem = ft_lstnew(content);
-	if (!new_elem)
-		return (NULL);
-	return (new_elem);
-}
 
 static void	free_map(t_list *map, void (*del)(void *))
 {
@@ -46,7 +36,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	while (lst)
 	{
 		transformed_content = f(lst->content);
-		new_elem = create_new_elem(transformed_content);
+		new_elem = ft_lstnew(transformed_content);
 		if (!new_elem)
 		{
 			del(transformed_content);
