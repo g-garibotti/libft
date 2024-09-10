@@ -6,7 +6,7 @@
 /*   By: ggaribot <ggaribot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:33:11 by ggaribot          #+#    #+#             */
-/*   Updated: 2024/08/11 18:48:21 by ggaribot         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:03:14 by ggaribot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,21 @@ static char	*line_update_buffer(char **stash, char **buffer)
 	{
 		line = ft_substr_gnl(*stash, 0, newline_pos - *stash + 1);
 		if (line == NULL)
-			return (free(*stash), NULL);
+			return (NULL);
 		*buffer = ft_strdup_gnl(newline_pos + 1);
 		if (*buffer == NULL)
-			return (free(*stash), free(line), NULL);
+		{
+			free(line);
+			return (NULL);
+		}
 	}
 	else
 	{
 		line = ft_strdup_gnl(*stash);
 		*buffer = NULL;
-		if (line == NULL)
-			return (free(*stash), NULL);
 	}
 	free(*stash);
+	*stash = NULL;
 	return (line);
 }
 
@@ -107,7 +109,11 @@ char	*get_next_line(int fd)
 		return (buffer = NULL, NULL);
 	line = line_update_buffer(&stash, &buffer);
 	if (line == NULL)
+	{
+		free(stash);
+		buffer = NULL;
 		return (NULL);
+	}
 	return (line);
 }
 /*
