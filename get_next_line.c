@@ -5,108 +5,106 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggaribot <ggaribot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/18 18:33:11 by ggaribot          #+#    #+#             */
-/*   Updated: 2024/09/10 12:51:30 by ggaribot         ###   ########.fr       */
+/*   Created: 2024/04/03 15:50:49 by tviejo            #+#    #+#             */
+/*   Updated: 2024/09/10 14:52:10 by ggaribot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*initialize_stash(char *buffer)
+char	*ft_realloc_gnl(char *ptr, char *buffer, int n)
 {
-	char	*stash;
+	void	*temp;
 
-	if (buffer)
-	{
-		stash = ft_strdup_gnl(buffer);
-		if (stash == NULL)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		free(buffer);
-		buffer = NULL;
-	}
-	else
-	{
-		stash = ft_strdup_gnl("");
-		if (stash == NULL)
-			return (NULL);
-	}
-	return (stash);
+	temp = malloc((ft_strlen_gnl(ptr) + 1) * sizeof(char));
+	if (temp == NULL)
+		return (temp);
+	ft_strncpy_gnl(temp, ptr, ft_strlen_gnl(ptr) + 1);
+	free(ptr);
+	ptr = malloc((n + 1) * sizeof(char));
+	if (ptr == NULL)
+		return (ptr);
+	ft_strncpy_gnl(ptr, temp, ft_strlen_gnl(temp) + 1);
+	ft_strncpy_gnl(ptr + ft_strlen_gnl(temp), buffer, ft_strlen_gnl(buffer)
+		+ 1);
+	free(temp);
+	ptr[n] = '\0';
+	return (ptr);
 }
 
-static char	*read_and_fill(int fd, char *stash)
+char	*ft_remove_buffer_gnl(char *output)
 {
-	char	*tmp;
-	char	*new_stash;
-	int		bytes_read;
+	int	i;
 
-	while (ft_strchr_gnl(stash, '\n') == NULL)
+	i = 0;
+	while (output[i] != '\0' && output[i] != '\n')
+		i++;
+	if (output[i] == '\n')
 	{
-		tmp = malloc(BUFFER_SIZE + 1);
-		if (tmp == NULL)
-			return (free(stash), NULL);
-		bytes_read = read(fd, tmp, BUFFER_SIZE);
-		if (bytes_read <= 0)
+		i++;
+		while (output[i] != '\0')
 		{
-			if (bytes_read == 0 && stash[0] != '\0')
-				return (free(tmp), stash);
-			return (free(stash), free(tmp), NULL);
+			output[i] = '\0';
+			i++;
 		}
-		tmp[bytes_read] = '\0';
-		new_stash = ft_strjoin_gnl(stash, tmp);
-		free(stash);
-		free(tmp);
-		if (new_stash == NULL)
-			return (NULL);
-		stash = new_stash;
 	}
-	return (stash);
+	return (output);
 }
 
-static char	*line_update_buffer(char **stash, char **buffer)
+void	*ft_bzero_gnl(void *s, size_t n)
 {
-	char	*line;
-	char	*newline_pos;
+	size_t	i;
 
-	newline_pos = ft_strchr_gnl(*stash, '\n');
-	if (newline_pos != NULL)
+	i = 0;
+	while (i < n)
 	{
-		line = ft_substr_gnl(*stash, 0, newline_pos - *stash + 1);
-		if (line == NULL)
-			return (free(*stash), NULL);
-		*buffer = ft_strdup_gnl(newline_pos + 1);
-		if (*buffer == NULL)
-			return (free(*stash), free(line), NULL);
+		((char *)s)[i] = '\0';
+		i++;
 	}
-	else
+	return (s);
+}
+
+char	*ft_read_gnl(char *buffer, int fd)
+{
+	int		byte;
+	int		byte_read;
+	char	*output;
+
+	byte_read = ft_strlen_gnl(buffer);
+	byte = 1;
+	output = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (output == NULL)
+		return (output);
+	ft_strncpy_gnl(output, buffer, BUFFER_SIZE + 1);
+	while (ft_is_new_line_gnl(buffer) == 0 && byte > 0 && output != NULL)
 	{
-		line = ft_strdup_gnl(*stash);
-		*buffer = NULL;
-		if (line == NULL)
-			return (free(*stash), NULL);
+		ft_bzero_gnl(buffer, BUFFER_SIZE + 1);
+		byte = read(fd, buffer, BUFFER_SIZE);
+		if (byte == -1)
+			return (ft_bzero_gnl(buffer, BUFFER_SIZE + 1), free(output), NULL);
+		if (byte > 0)
+		{
+			buffer[byte] = '\0';
+			byte_read += byte;
+			output = ft_realloc_gnl(output, buffer, byte_read + 1);
+		}
 	}
-	free(*stash);
-	return (line);
+	return (output);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer = NULL;
-	char		*line;
-	char		*stash;
+	static char	buffer[BUFFER_SIZE + 1] = "\0";
+	char		*output;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1023)
 		return (NULL);
-	stash = initialize_stash(buffer);
-	if (stash == NULL)
-		return (NULL);
-	stash = read_and_fill(fd, stash);
-	if (stash == NULL)
-		return (buffer = NULL, NULL);
-	line = line_update_buffer(&stash, &buffer);
-	if (line == NULL)
-		return (NULL);
-	return (line);
+	output = ft_read_gnl(buffer, fd);
+	if (output == NULL)
+		return (ft_bzero_gnl(buffer, BUFFER_SIZE + 1), NULL);
+	ft_remove_returned_gnl(buffer);
+	output = ft_remove_buffer_gnl(output);
+	if (output[0] == '\0')
+		return (ft_bzero_gnl(buffer, BUFFER_SIZE + 1), free(output), NULL);
+	return (output);
 }
