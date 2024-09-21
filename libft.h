@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggaribot <ggaribot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: genarogaribotti <genarogaribotti@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:14:38 by ggaribot          #+#    #+#             */
-/*   Updated: 2024/09/09 14:13:15 by ggaribot         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:40:29 by genarogarib      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "ft_printf.h"
+# include "get_next_line.h"
 
 # define FIRST_ASCII_CHAR 0
 # define LAST_ASCII_CHAR 127
