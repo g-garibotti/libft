@@ -6,7 +6,7 @@
 /*   By: ggaribot <ggaribot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:50:56 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 14:43:18 by ggaribot         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:38:32 by ggaribot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
+#  define BUFFER_SIZE 1
 # elif BUFFER_SIZE < 0
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 0
