@@ -102,7 +102,3 @@ To use the library in your C projects:
 - `ft_lstclear`: Delete sequence of elements of list from a starting point.
 - `ft_lstiter`: Apply function to content of all list's elements.
 - `ft_lstmap`: Apply function to content of all list's elements into new list.
-
-## Testing
-
-To ensure the correct functionality of the library, it's recommended to create test programs for each function. These tests are not included in the final submission but are crucial for development and debugging.
