@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: genarogaribotti <genarogaribotti@studen    +#+  +:+       +#+        */
+/*   By: ggaribot <ggaribot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:14:38 by ggaribot          #+#    #+#             */
-/*   Updated: 2024/09/21 11:40:29 by genarogarib      ###   ########.fr       */
+/*   Updated: 2025/01/17 15:19:41 by ggaribot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "ft_printf.h"
+# include "get_next_line.h"
 # include <limits.h>
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "ft_printf.h"
-# include "get_next_line.h"
 
 # define FIRST_ASCII_CHAR 0
 # define LAST_ASCII_CHAR 127
@@ -85,5 +85,7 @@ long				ft_atol(const char *n);
 char				**ft_strdup_2d(char **array);
 void				ft_free_2d_array(char **array);
 size_t				ft_strlen_2d(char **array);
+int					ft_strcmp(const char *s1, const char *s2);
+void				ft_free_split(char **split);
 
 #endif
