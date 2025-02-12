@@ -6,7 +6,7 @@
 /*   By: ggaribot <ggaribot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:14:38 by ggaribot          #+#    #+#             */
-/*   Updated: 2025/01/30 12:32:35 by ggaribot         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:48:03 by ggaribot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ size_t				ft_strlen_2d(char **array);
 int					ft_strcmp(const char *s1, const char *s2);
 void				ft_free_split(char **split);
 int					ft_strlen_no_nl(char *str);
+char				*ft_strjoin_free(char *s1, char *s2);
 
 #endif

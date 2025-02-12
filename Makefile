@@ -6,7 +6,7 @@
 #    By: ggaribot <ggaribot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 17:02:47 by ggaribot          #+#    #+#              #
-#    Updated: 2025/01/30 12:33:02 by ggaribot         ###   ########.fr        #
+#    Updated: 2025/02/12 13:47:30 by ggaribot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC		=	ft_strlen.c		ft_toupper.c	ft_tolower.c	ft_strrchr.c	ft_strnstr.c	ft_strnc
 			ft_atol.c		2d_map.c		ft_strcmp.c		ft_free_split.c \
 			ft_lstnew.c	ft_lstadd_front.c	ft_lstsize.c	ft_lstlast.c \
 			ft_lstadd_back.c	ft_lstdelone.c	ft_lstclear.c	ft_lstiter.c \
-			ft_lstmap.c		ft_strlen_no_nl.c
+			ft_lstmap.c		ft_strlen_no_nl.c ft_strjoin_free.c \
 
 OBJS		=	$(SRC:.c=.o)
 BOBJS		=	$(BSRC:.c=.o)
